@@ -1,20 +1,21 @@
-﻿#Login to Azure account
+#Login to Azure account
 Login-AzureRmAccount
 
 # To select a default subscription for your current session
-Set-AzureRmContext -SubscriptionName "Subscription Name" 
+# Set-AzureRmContext -SubscriptionName "Subscription Name" 
 
 #create a new resource group
 $locationName ="Southeast Asia"
 $resourceGroup = "day2"
-New-AzureRmResourceGroup -Name $resourceGroup -Location $locationName
+# Uncomment following line if day2 doesn't exists
+# New-AzureRmResourceGroup -Name $resourceGroup -Location $locationName
 
 #create a storage account and test the uniqueness of storage account name (return False indicates unique)
-#$storageAccName = "Day2storageacc"
-#Test-AzureName -Storage $storageAccName
-
+$n1 = get-random
+$storageAccName = "mystore$n1"
+Test-AzureName -Storage $storageAccName
+echo "Storage Account : $storageAccName"
 #create storage account
-$storageAccName = "day2storageacc"
 $storageAcc = New-AzureRmStorageAccount -ResourceGroupName $resourceGroup -Name $storageAccName -Type "Standard_LRS" -Location $locationName
 
 #create a virtual network
